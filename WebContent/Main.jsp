@@ -11,6 +11,7 @@
 </head>
 <body>
 <%-- 	<%@include file="topo.jsp"%> --%>
+<!--  Percebam que aqui no action eu to passando qual a página que elevai mandar os dados depois que eu clicar no botao -->
         <form action="PessoaCRUD.jsp" method="GET">
             Nome:<input type="text" name="txtnome" /><br>
             

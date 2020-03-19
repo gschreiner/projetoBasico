@@ -10,6 +10,7 @@
 	</head>
 	<body>
 			
+<!-- 			Aqui estamos pegando os valores que vieram pelo formulário da página Main -->
 		<% if (request.getParameter("txtnome")!= null) {%>
 			<p>Nome: <%=request.getParameter("txtnome") %></p>
 		<% }%>
@@ -20,6 +21,8 @@
 			<p>Nome: <%=request.getParameter("txtdtnasc") %></p>
 		<% }%>
 		
+		
+<!-- 		Aqui estamos criando o objeto pessoa e armazenando no session para acessar eles na outra pagina -->
 		<% 
 			Pessoa p = new Pessoa();
 			p.setNome(request.getParameter("txtnome"));
