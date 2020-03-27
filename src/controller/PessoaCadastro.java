@@ -24,7 +24,6 @@ public class PessoaCadastro extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-
 		handleRequest(req, resp);
 	}
 
@@ -40,6 +39,7 @@ public class PessoaCadastro extends HttpServlet {
 		Pessoa p;
 		
 		List <Pessoa> pessoas;
+		
 		if (req.getSession().getAttribute("pessoas")== null){
 			pessoas = new ArrayList<Pessoa>();
 			req.getSession().setAttribute("pessoas", pessoas);
@@ -65,6 +65,7 @@ public class PessoaCadastro extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		//req.setAttribute(GREETING_REQUEST_PARAMETER_KEY, greeting);
 		req.getRequestDispatcher("Pessoas.jsp").forward(req, resp);

@@ -13,6 +13,7 @@
 		<p> Cadastros disponíveis</p>
 		<ul>
 			<li><a href="Pessoas.jsp"> Pessoas</li>
+			<li><a href="Microondas.jsp"> Microondas</li>
 		
 		</ul>
 </body>

@@ -46,7 +46,7 @@
 
 	<div style="position: relative; display: inline-block; width: 50%;margin-bottom: 40px; margin-left: 15%; border-collapse: collapse;">
 		<!--  Percebam que aqui no action eu to passando qual a página que elevai mandar os dados depois que eu clicar no botao -->
-        <form action="PessoaCadastro" method="GET" visible="false">
+        <form action="PessoaCadastro" method="GET">
             <p>Nome:<input type="text" name="txtnome" /></p>
             
             <p>E-Mail:<input type="text" name="txtemail" /></p>

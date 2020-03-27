@@ -27,6 +27,7 @@
 		}
 
 		Pessoa p = pessoas.get(pessoaId);
+		
 	%>
 
 	<div
@@ -46,8 +47,9 @@
 					name="txtdtnasc" value="<%=p.getDataNasDateInput()%>" />
 			</p>
 			
-			<input type="hidden" name="updatePessoa" value=<%=pessoaId%> /> <input
-				type="submit" value="Salvar" />
+			<input type="hidden" name="updatePessoa" value=<%=pessoaId%> /> 
+			
+			<input type="submit" value="Salvar" />
 
 		</form>
 	</div>
