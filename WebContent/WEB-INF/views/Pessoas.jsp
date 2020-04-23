@@ -3,6 +3,8 @@
 
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +25,7 @@
 				<tr>
 					<td>${p.nome}</td>
 					<td>${p.email}</td>
-					<td>${p.dataNasc}</td>
+					<td><fmt:formatDate pattern="dd/MM/yyyy" value="${p.dataNasc}" /></td>
 					<td><a href="pessoaDetail/${p.id}">Edit</a></td>
 				</tr>
 			</c:forEach>
