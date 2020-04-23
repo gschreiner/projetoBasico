@@ -1,17 +1,32 @@
-package models;
+package edu.unoesc.model;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+@SuppressWarnings("serial")
 public class Pessoa implements Serializable {
 
+	private int id;
 	private String nome;
 	private int idade;
 	private String email;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataNasc;
 
 	
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getEmail() {
 		return email;
 	}
