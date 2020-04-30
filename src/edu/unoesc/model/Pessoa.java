@@ -1,17 +1,60 @@
-package models;
+package edu.unoesc.model;
 
-import java.io.Serializable;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Pessoa implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+@Table(name = "PESSOAS")
+public class Pessoa {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name = "nome")
 	private String nome;
+	
+	@Column(name = "idade")
 	private int idade;
+	
+	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "dataNasc")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataNasc;
 
-	
+	public Pessoa() {
+		
+	}
+		
+	public Pessoa(int id, String nome, int idade, String email, Date dataNasc) {
+		
+		this.id = id;
+		this.nome = nome;
+		this.idade = idade;
+		this.email = email;
+		this.dataNasc = dataNasc;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getEmail() {
 		return email;
 	}
