@@ -23,7 +23,7 @@ public class PessoaController {
 	private PessoaDAO pessoaDao;
 
 	@RequestMapping(value = "/pessoas", method = RequestMethod.GET)
-	public String pessoasList(Model m, HttpSession session) {
+	public String pessoasList(Model m) {
 
 		ArrayList<Pessoa> pessoas = new ArrayList(pessoaDao.getPessoas());
 

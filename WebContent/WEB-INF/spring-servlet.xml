@@ -57,6 +57,7 @@
     </bean>
  
  	<bean id="PessoaDAO" class="edu.unoesc.dao.PessoaDAOImpl"></bean>
+ 	<bean id="MicroondasDAO" class="edu.unoesc.dao.MicroondasDAOImpl"></bean>
     
     <tx:annotation-driven />
     <bean id="transactionManager"  class="org.springframework.orm.hibernate5.HibernateTransactionManager">

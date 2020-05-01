@@ -22,6 +22,8 @@ public class PessoaDAOImpl implements PessoaDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		Pessoa p = (Pessoa) session.get(Pessoa.class, new Integer(id));
 		
+		//System.out.println("nome: " + p.getNome());
+		
 		return p;
 	}
 
