@@ -8,59 +8,57 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.unoesc.model.Pessoa;
+import edu.unoesc.model.Microondas;
 
 @Repository
-public class PessoaDAOImpl implements PessoaDAO {
-	
+public class MicroondasDAOImpl implements MicroondasDAO {
+
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	
 	@Override
 	@Transactional
-	public Pessoa getPessoaById(int id) {
+	public Microondas getMicroondasById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Pessoa p = (Pessoa) session.get(Pessoa.class, new Integer(id));
 		
-		//System.out.println("nome: " + p.getNome());
+		Microondas micro = session.load(Microondas.class, id);
 		
-		return p;
+		return micro;
 	}
 
 	@Override
 	@Transactional
-	public List<Pessoa> getPessoas() {
-		
-		return this.sessionFactory.getCurrentSession().createQuery("from Pessoa").list();
+	public List<Microondas> getMicroondas() {
+		Session session = this.sessionFactory.getCurrentSession();
+		return session.createQuery("FROM Microondas").list();
 	}
 
 	@Override
 	@Transactional
-	public boolean deletePessoa(int id) {
+	public boolean deleteMicroondas(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Pessoa p = (Pessoa) session.load(Pessoa.class, new Integer(id));
-		if (p!=null) {
-			session.delete(p);
+		
+		Microondas micro = session.load(Microondas.class, id);
+		if (micro != null) {
+			session.delete(micro);
 			return true;
 		}
-		return false;
-	}
-
-	@Override
-	@Transactional
-	public boolean insertPessoa(Pessoa p) {
-		
-		this.sessionFactory.getCurrentSession().save(p);
 		
 		return false;
 	}
 
 	@Override
 	@Transactional
-	public boolean updatePessoa(Pessoa p) {
+	public boolean insertMicroondas(Microondas p) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.update(p);
+		session.save(p);
 		return true;
+	}
+
+	@Override
+	public boolean updateMicroondas(Microondas p) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
