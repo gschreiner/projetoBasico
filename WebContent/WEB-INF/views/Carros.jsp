@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Pessoas</title>
+<title>Carros</title>
 </head>
 <body>
 	<div
@@ -18,16 +18,18 @@
 		<table border="2" width="70%" cellpadding="2">
 			<tr>
 				<th>Modelo</th>
-				<th>Fabricante</th>
-				<th>Proprietario</th>
+				<th>Marca</th>
+				<th>Placa</th>
+<!-- 				<th>Proprietario</th> -->
 			</tr>
-			<c:forEach var="m" items="${listMicro}">
+			<c:forEach var="m" items="${listCarros}">
 				<tr>
 					<td>${m.modelo}</td>
-					<td>${m.fabricante}</td>
-					<td>${m.pessoa.nome}</td>
-					<td><a href="microDelete/${m.id}">Del</a></td>
-					<td><a href="microDetail/${m.id}">Edit</a></td>
+					<td>${m.marca}</td>
+					<td>${m.placa}</td>
+<%-- 					<td>${m.pessoa.nome}</td> --%>
+					<td><a href="carroDelete/${m.id}">Del</a></td>
+					<td><a href="carroDetail/${m.id}">Edit</a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -36,27 +38,30 @@
 	<div
 		style="position: relative; display: inline-block; width: 50%; margin-bottom: 40px; margin-left: 15%; border-collapse: collapse;">
 		<!--  Percebam que aqui no action eu to passando qual a página que elevai mandar os dados depois que eu clicar no botao -->
-		<form action="microSave" method="POST" modelAttribute="micro">
+		<form action="carroSave" method="POST" modelAttribute="carro">
 			<p>
 				Modelo:
-				<form:input path="micro.modelo" />
+				<form:input path="carro.modelo" />
 				
 			</p>
 
 			<p>
 				Fabricante:
-				<form:input path="micro.fabricante" />
+				<form:input path="carro.marca" />
 				
 			</p>
 			
 			<p>
-				Proprietário:
-				<form:select path="micro.pessoa.id">
-<%--                     <form:option value="-1" label="--Selecione Proprietário"/> --%>
-                    <form:options items="${pessoasList}" itemValue="id" itemLabel="nome"/>
-                </form:select>
+				Placa:
+				<form:input path="carro.placa" />
 				
 			</p>
+			
+<!-- 			<p> -->
+<!-- 				Proprietário: -->
+<%-- 				<form:select path="carro.pessoas" items="${pessoasList}" multiple="true" itemValue="id" itemLabel="nome"/> --%>
+				
+<!-- 			</p> -->
 
 
 			<input type="submit" value="Adicionar" />

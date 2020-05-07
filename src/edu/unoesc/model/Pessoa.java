@@ -3,12 +3,16 @@ package edu.unoesc.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,6 +37,12 @@ public class Pessoa {
 	@Column(name = "dataNasc")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataNasc;
+	
+	@OneToMany
+	private List<Microondas> microondas;
+	
+	@ManyToMany(mappedBy = "pessoas")
+	private Set<Carro> carros;
 
 	public Pessoa() {
 		
@@ -103,5 +113,41 @@ public class Pessoa {
 		
 		return format.format(this.dataNasc);
 	}
+
+	public List<Microondas> getMicroondas() {
+		return microondas;
+	}
+
+	public void setMicroondas(List<Microondas> microondas) {
+		this.microondas = microondas;
+	}
+
+	public Set<Carro> getCarros() {
+		return carros;
+	}
+
+	public void setCarros(Set<Carro> carros) {
+		this.carros = carros;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+	
+	
 
 }

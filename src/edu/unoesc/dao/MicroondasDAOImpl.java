@@ -21,7 +21,7 @@ public class MicroondasDAOImpl implements MicroondasDAO {
 	public Microondas getMicroondasById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		
-		Microondas micro = session.load(Microondas.class, id);
+		Microondas micro = session.get(Microondas.class, id);
 		
 		return micro;
 	}
@@ -56,8 +56,13 @@ public class MicroondasDAOImpl implements MicroondasDAO {
 	}
 
 	@Override
+	@Transactional
 	public boolean updateMicroondas(Microondas p) {
-		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		if (p != null) {
+			session.update(p);
+			return true;
+		}
 		return false;
 	}
 

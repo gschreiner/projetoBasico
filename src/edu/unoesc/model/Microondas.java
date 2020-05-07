@@ -1,10 +1,15 @@
 package edu.unoesc.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +25,11 @@ public class Microondas {
 	
 	@Column(name = "fabricante")
 	private String fabricante;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_pessoa")
+	private Pessoa pessoa;
+
 
 	public int getId() {
 		return id;
@@ -44,6 +54,14 @@ public class Microondas {
 	public void setFabricante(String fabricante) {
 		this.fabricante = fabricante;
 	}
-	
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
 	
 }

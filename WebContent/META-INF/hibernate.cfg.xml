@@ -7,5 +7,6 @@
     <session-factory>
         <mapping class="edu.unoesc.model.Pessoa"></mapping>
         <mapping class="edu.unoesc.model.Microondas"></mapping>
+        <mapping class="edu.unoesc.model.Carro"></mapping>
     </session-factory>
 </hibernate-configuration>
