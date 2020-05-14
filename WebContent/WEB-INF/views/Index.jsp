@@ -14,6 +14,7 @@
 		<ul>
 			<li><a href="pessoas"> Pessoas</li>
 			<li><a href="microondas"> Microondas</li>
+			<li><a href="corona"> Corona</li>
 			<li><a href="carros"> Carros</li>
 		</ul>
 </body>

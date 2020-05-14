@@ -14,24 +14,31 @@
 	<div
 		style="position: relative; display: inline-block; width: 50%; margin-bottom: 40px; margin-left: 15%; border-collapse: collapse;">
 		<!--  Percebam que aqui no action eu to passando qual a página que elevai mandar os dados depois que eu clicar no botao -->
-		<form action="/ProjetoBasico/microUpdate" method="POST" modelAttribute="micro">
-		<form:hidden path="micro.id" />
+		<form action="/ProjetoBasico/coronaUpdate" method="POST" modelAttribute="corona">
+			<form:hidden path="corona.id"/>
 			<p>
-				Modelo:
-				<form:input path="micro.modelo" />
+				Status:
+				<form:select path="corona.status">
+                    <form:option value="0" label="Suspeito"/>
+                    <form:option value="1" label="Confirmado"/>
+                    <form:option value="2" label="Curado"/>
+                </form:select>
 				
 			</p>
 
 			<p>
-				Fabricante:
-				<form:input path="micro.fabricante" />
+				Vivo:
+				<form:select path="corona.vivo">
+                    <form:option value="1" label="Vivo"/>
+                    <form:option value="0" label="Morto"/>
+                </form:select>
 				
 			</p>
 			
 			<p>
-				Proprietário:
-				<form:select path="micro.pessoa.id">
-                    <form:option value="-1" label="-- Selecione Proprietário --"/>
+				Pessoa:
+				<form:select path="corona.pessoa.id">
+<%--                     <form:option value="-1" label="--Selecione Proprietário"/> --%>
                     <form:options items="${pessoasList}" itemValue="id" itemLabel="nome"/>
                 </form:select>
 				
@@ -44,6 +51,6 @@
 	</div>
 
 
-	<a href="/ProjetoBasico/microondas"> Voltar</a>
+	<a href="/ProjetoBasico/corona"> Voltar</a>
 </body>
 </html>

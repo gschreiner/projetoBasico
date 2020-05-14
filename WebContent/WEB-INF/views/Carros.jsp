@@ -57,11 +57,11 @@
 				
 			</p>
 			
-<!-- 			<p> -->
-<!-- 				Proprietário: -->
-<%-- 				<form:select path="carro.pessoas" items="${pessoasList}" multiple="true" itemValue="id" itemLabel="nome"/> --%>
+			<p>
+				Proprietário:
+				<form:select path="carro.pessoas" items="${pessoasList}" multiple="true" itemValue="id" itemLabel="nome"/>
 				
-<!-- 			</p> -->
+			</p>
 
 
 			<input type="submit" value="Adicionar" />

@@ -43,6 +43,9 @@ public class Pessoa {
 	
 	@ManyToMany(mappedBy = "pessoas")
 	private Set<Carro> carros;
+	
+	@OneToMany
+	private Set<Corona> corona;
 
 	public Pessoa() {
 		
@@ -147,7 +150,12 @@ public class Pessoa {
 		// TODO Auto-generated method stub
 		return super.toString();
 	}
-	
-	
 
+	public Set<Corona> getCorona() {
+		return corona;
+	}
+
+	public void setCorona(Set<Corona> corona) {
+		this.corona = corona;
+	}
 }

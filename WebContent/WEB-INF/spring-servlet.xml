@@ -27,6 +27,17 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+	<mvc:annotation-driven conversion-service="conversionService"/>
+ 
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	 
+	    <property name="converters">
+	        <list>
+	            <bean id="pessoaToCarroConverter" class="edu.unoesc.converter.PessoaToCarroConverter" />
+	        </list>
+	    </property>
+	</bean>
+	        	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
      
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -59,6 +70,7 @@
  	<bean id="PessoaDAO" class="edu.unoesc.dao.PessoaDAOImpl"></bean>
  	<bean id="MicroondasDAO" class="edu.unoesc.dao.MicroondasDAOImpl"></bean>
  	<bean id="CarrosDAO" class="edu.unoesc.dao.CarrosDAOImpl"></bean>
+ 	<bean id="CoronaDAO" class="edu.unoesc.dao.CoronaDAOImpl"></bean>
     
     <tx:annotation-driven />
     <bean id="transactionManager"  class="org.springframework.orm.hibernate5.HibernateTransactionManager">
