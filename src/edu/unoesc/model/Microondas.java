@@ -27,7 +27,7 @@ public class Microondas {
 	private String fabricante;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_pessoa")
+	@JoinColumn(name = "id_pessoa", referencedColumnName = "id")
 	private Pessoa pessoa;
 
 

@@ -1,63 +1,114 @@
 package edu.unoesc.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpSession;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.unoesc.dao.PessoaDAO;
 import edu.unoesc.model.Pessoa;
 
-@Controller
-public class PessoaController {
+@ManagedBean(name="pessoaMB")
+@RequestScoped
+public class PessoaController implements Serializable  {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private ArrayList<Pessoa> pessoas;
+	private Pessoa pessoa = new Pessoa();	
 
-	@Autowired
+	@ManagedProperty(value="#{PessoaDAO}")
 	private PessoaDAO pessoaDao;
+	
 
-	@RequestMapping(value = "/pessoas", method = RequestMethod.GET)
-	public String pessoasList(Model m) {
+	//@RequestMapping(value = "/pessoaSave", method = RequestMethod.POST)
+	public void save() {
+		
+		if (pessoa.getId() != 0) {
+			this.pessoaDao.updatePessoa(pessoa);
+		}else {
+			this.pessoaDao.insertPessoa(pessoa);
+		}
+		
+		pessoa = new Pessoa();
 
-		ArrayList<Pessoa> pessoas = new ArrayList(pessoaDao.getPessoas());
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pessoa Salva"));
+		
+		//return "Index";
+	}
+	
+	public void delete(int id) {
 
-		m.addAttribute("listPessoas", pessoas);
-		m.addAttribute("pessoa", new Pessoa());
+		this.pessoaDao.deletePessoa(id);		
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pessoa Excluida"));
+		
+		//return "Index";
+	}
+	
+	public void load(int id) {
 
-		return "Pessoas";
+		pessoa = this.pessoaDao.getPessoaById(id);		
+		
+		//return "Index";
+	}
+	
+	
+	public ArrayList<Pessoa> getPessoas() {
+		//if (pessoaDao == null) pessoaDao = new PessoaDAOImpl();
+		pessoas = new ArrayList(pessoaDao.getPessoas());
+		return pessoas;
 	}
 
-	@RequestMapping(value = "/pessoaSave", method = RequestMethod.POST)
-	public String save(@ModelAttribute("pessoa") Pessoa pessoa) {
-
-		this.pessoaDao.insertPessoa(pessoa);
-
-		return "redirect:/pessoas";
+	public void setPessoas(ArrayList<Pessoa> pessoas) {
+		this.pessoas = pessoas;
 	}
 
-	@RequestMapping(value = "/pessoaDetail/{id}")
-	public String pessoa(@PathVariable int id, Model model) {
-
-		Pessoa user = this.pessoaDao.getPessoaById(id);
-
-		model.addAttribute("pessoa", user);
-
-		return "PessoaDetail";
-
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	@RequestMapping(value = "/pessoaUpdate", method = RequestMethod.POST)
-	public String pessoaEdit(@ModelAttribute("pessoa") Pessoa pessoa) {
-
-		this.pessoaDao.updatePessoa(pessoa);
-
-		return "redirect:/pessoas";
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
+
+	public PessoaDAO getPessoaDao() {
+		return pessoaDao;
+	}
+
+	public void setPessoaDao(PessoaDAO pessoaDao) {
+		this.pessoaDao = pessoaDao;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+
+//	@RequestMapping(value = "/pessoaDetail/{id}")
+//	public String pessoa(@PathVariable int id, Model model) {
+//
+//		Pessoa user = this.pessoaDao.getPessoaById(id);
+//
+//		model.addAttribute("pessoa", user);
+//
+//		return "PessoaDetail";
+//
+//	}
+//
+//	@RequestMapping(value = "/pessoaUpdate", method = RequestMethod.POST)
+//	public String pessoaEdit(@ModelAttribute("pessoa") Pessoa pessoa) {
+//
+//		this.pessoaDao.updatePessoa(pessoa);
+//
+//		return "redirect:/pessoas";
+//	}
+	
+	
 
 }

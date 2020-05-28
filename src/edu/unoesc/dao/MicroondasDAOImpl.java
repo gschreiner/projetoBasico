@@ -6,64 +6,62 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.unoesc.model.Microondas;
 
-@Repository
+@Service(value="MicroondasDAO")
 public class MicroondasDAOImpl implements MicroondasDAO {
-
+	
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	@Transactional
 	public Microondas getMicroondasById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
+		Microondas p = (Microondas) session.get(Microondas.class, new Integer(id));
 		
-		Microondas micro = session.get(Microondas.class, id);
+		//System.out.println("nome: " + p.getNome());
 		
-		return micro;
+		return p;
 	}
 
 	@Override
 	@Transactional
 	public List<Microondas> getMicroondas() {
-		Session session = this.sessionFactory.getCurrentSession();
-		return session.createQuery("FROM Microondas").list();
+		
+		return this.sessionFactory.getCurrentSession().createQuery("from Microondas").list();
 	}
 
 	@Override
 	@Transactional
 	public boolean deleteMicroondas(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		
-		Microondas micro = session.load(Microondas.class, id);
-		if (micro != null) {
-			session.delete(micro);
+		Microondas p = (Microondas) session.load(Microondas.class, new Integer(id));
+		if (p!=null) {
+			session.delete(p);
 			return true;
 		}
-		
 		return false;
 	}
 
 	@Override
 	@Transactional
 	public boolean insertMicroondas(Microondas p) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.save(p);
-		return true;
+		
+		this.sessionFactory.getCurrentSession().save(p);
+		
+		return false;
 	}
 
 	@Override
 	@Transactional
 	public boolean updateMicroondas(Microondas p) {
 		Session session = this.sessionFactory.getCurrentSession();
-		if (p != null) {
-			session.update(p);
-			return true;
-		}
-		return false;
+		session.update(p);
+		return true;
 	}
 
 }

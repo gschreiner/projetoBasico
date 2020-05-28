@@ -27,7 +27,7 @@ public class Corona {
 	private int vivo;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_pessoa")
+	@JoinColumn(name = "id_pessoa", referencedColumnName = "id")
 	private Pessoa pessoa;
 
 	public int getId() {

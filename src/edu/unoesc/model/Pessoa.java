@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,14 +39,14 @@ public class Pessoa {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataNasc;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "pessoa",cascade = CascadeType.ALL)
 	private List<Microondas> microondas;
 	
-	@ManyToMany(mappedBy = "pessoas")
+	@ManyToMany(mappedBy = "pessoas", cascade = CascadeType.ALL)
 	private Set<Carro> carros;
-	
-	@OneToMany
-	private Set<Corona> corona;
+
+	@OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL)
+	private List<Corona> coronas;
 
 	public Pessoa() {
 		
@@ -135,27 +136,23 @@ public class Pessoa {
 
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
+		if (obj != null && obj instanceof Pessoa) {
+			Pessoa p = (Pessoa) obj;
+			boolean r =  (p.getId() == this.id);
+			r=  (r && p.getNome().equals(nome));
+			return r;
+		}
+		
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		return this.id + this.nome.length() + this.email.length();
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
-
-	public Set<Corona> getCorona() {
-		return corona;
-	}
-
-	public void setCorona(Set<Corona> corona) {
-		this.corona = corona;
+		return this.nome;
 	}
 }
