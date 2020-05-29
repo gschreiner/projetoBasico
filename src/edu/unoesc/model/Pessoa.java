@@ -140,6 +140,7 @@ public class Pessoa {
 			Pessoa p = (Pessoa) obj;
 			boolean r =  (p.getId() == this.id);
 			r=  (r && p.getNome().equals(nome));
+		
 			return r;
 		}
 		

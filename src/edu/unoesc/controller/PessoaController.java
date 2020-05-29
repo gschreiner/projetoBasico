@@ -26,7 +26,6 @@ public class PessoaController implements Serializable  {
 	private PessoaDAO pessoaDao;
 	
 
-	//@RequestMapping(value = "/pessoaSave", method = RequestMethod.POST)
 	public void save() {
 		
 		if (pessoa.getId() != 0) {
@@ -38,8 +37,7 @@ public class PessoaController implements Serializable  {
 		pessoa = new Pessoa();
 
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pessoa Salva"));
-		
-		//return "Index";
+	
 	}
 	
 	public void delete(int id) {
@@ -47,7 +45,6 @@ public class PessoaController implements Serializable  {
 		this.pessoaDao.deletePessoa(id);		
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Pessoa Excluida"));
 		
-		//return "Index";
 	}
 	
 	public void load(int id) {

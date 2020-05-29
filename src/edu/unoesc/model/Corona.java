@@ -64,20 +64,25 @@ public class Corona {
 
 	@Override
 	public boolean equals(Object arg0) {
-		// TODO Auto-generated method stub
-		return super.equals(arg0);
+		if (arg0 != null && arg0 instanceof Corona) {
+			Corona a = (Corona) arg0;
+			boolean r;
+			r = (this.id == a.id); 
+			r = (r && this.pessoa.equals(pessoa));
+			return r;
+		}
+		
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		return id + status + vivo + pessoa.hashCode();
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
+		return this.pessoa.getNome() + vivo;
 	}
 	
 }
