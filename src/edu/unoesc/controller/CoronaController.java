@@ -22,6 +22,8 @@ public class CoronaController {
 	private List<Corona> listCorona;
 	private List<Pessoa> pessoas;
 	
+	private String[] status = {"Suspeito", "Confirmado", "Curado"};
+	
 	private boolean estaVivo;
 	
 
@@ -125,6 +127,16 @@ public class CoronaController {
 
 	public void setEstaVivo(boolean estaVivo) {
 		this.estaVivo = estaVivo;
+	}
+
+
+	public String[] getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String[] status) {
+		this.status = status;
 	}
 	
 	
