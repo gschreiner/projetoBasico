@@ -2,13 +2,13 @@
 <!DOCTYPE hibernate-configuration PUBLIC
     "-//Hibernate/Hibernate Configuration DTD//EN"
     "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
- 
+
 <hibernate-configuration>
-    <session-factory>
-        <mapping class="edu.unoesc.model.Pessoa"></mapping>
-        <mapping class="edu.unoesc.model.Microondas"></mapping>
-        <mapping class="edu.unoesc.model.Carro"></mapping>
-        <mapping class="edu.unoesc.model.Corona"></mapping>
-        <mapping class="edu.unoesc.model.Usuario"></mapping>
-    </session-factory>
+	<session-factory>
+		<mapping class="edu.unoesc.model.Pessoa"></mapping>
+		<mapping class="edu.unoesc.model.Microondas"></mapping>
+		<mapping class="edu.unoesc.model.Carro"></mapping>
+		<mapping class="edu.unoesc.model.Corona"></mapping>
+		<mapping class="edu.unoesc.model.Usuario"></mapping>
+	</session-factory>
 </hibernate-configuration>

@@ -14,6 +14,8 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
 
+import com.sun.istack.NotNull;
+
 import edu.unoesc.dao.UsuarioDAO;
 
 import edu.unoesc.dao.PessoaDAO;
@@ -30,7 +32,6 @@ public class LoginController {
 	
 	private boolean logado = false;
 	
-
 	@ManagedProperty(value="#{UsuarioDAO}")
 	private UsuarioDAO usuarioDao;
 	

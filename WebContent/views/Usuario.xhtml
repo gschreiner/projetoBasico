@@ -48,14 +48,20 @@
 			<h:inputHidden value="#{usuarioMB.usuario.id}" />
 
 			<p:growl id="growl" sticky="false" showDetail="false" />
+			
+			<p:messages id="msgs" />
 			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 
 				<h:outputText value="Nome: " />
 				<p:inputText value="#{usuarioMB.usuario.nome}" required="true"
-					label="Nome" />
+					label="Nome" >
+						<f:validateLength minimum="5" maximum="20" />
+					</p:inputText>
 
 				<h:outputText value="Email: " />
-				<p:inputText required="true" value="#{usuarioMB.usuario.email}" />
+				<p:inputText required="true" value="#{usuarioMB.usuario.email}" >
+					 <f:validator validatorId="edu.unoesc.validator.EmailValidator"/>
+				</p:inputText>
 
 				<h:outputText value="login: " />
 				<p:inputText required="true" value="#{usuarioMB.usuario.login}" />
