@@ -10,11 +10,69 @@
 <h:head>
 </h:head>
 <h:body>
+
+	<script type="text/javascript">
+		function handleLoginRequest(xhr, status, args) {
+			if (args.validationFailed || !args.loggedIn) {
+				PF('dlg').jq.effect("shake", {
+					times : 5
+				}, 100);
+			} else {
+				PF('dlg').hide();
+				$('#loginLink').fadeOut();
+			}
+		}
+	</script>
+
+	<h:form id="loginform">
+
+		<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+		<p:dialog header="Login" widgetVar="dlg" resizable="false"
+			rendered="#{!usuarioMB.logado}">
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputLabel for="login" value="Login:" />
+				<p:inputText id="login" value="#{usuarioMB.usuario.login}"
+					required="true" label="login" />
+
+				<h:outputLabel for="senha" value="Senha:" />
+				<p:password id="senha" value="#{usuarioMB.usuario.senha}"
+					required="true" label="senha" />
+
+				<f:facet name="footer">
+					<p:commandButton value="Login" update="growl panelCad logoutForm"
+						action="#{usuarioMB.fazLogin}"
+						oncomplete="handleLoginRequest(xhr, status, args)" />
+				</f:facet>
+			</h:panelGrid>
+		</p:dialog>
+	</h:form>
+
+	<h:form id="logoutForm">
+		<p:commandLink action="#{usuarioMB.fazLogout}"
+			update="panelCad loginform logoutForm" rendered="#{usuarioMB.logado}">
+			<p:graphicImage name="images/logout.png" height="40px" />
+		</p:commandLink>
+		<h:outputLink id="linkLogin" value="javascript:void(0)" onclick="PF('dlg').show();"
+			rendered="#{!usuarioMB.logado}" title="login">
+			<p:graphicImage name="images/login.png" height="40px" />
+		</h:outputLink>
+	</h:form>
+
 	<p:panel id="panelCad" header="Menu"
 		style="margin: 20px auto; width:150px;">
-		<p:linkButton outcome="Pessoas.xhtml" value="Pessoas" style="margin-right:20px; width:120px;" />
-		<p:linkButton outcome="Microondas.xhtml" value="Microondas" style="margin-right:20px;width:120px;" />
-		<p:linkButton outcome="Corona.xhtml" value="Corona" style="margin-right:20px;width:120px;" />
+
+		<p:linkButton outcome="Pessoas.xhtml" disabled="#{!usuarioMB.logado}"
+			value="Pessoas" style="margin-right:20px; width:120px;" />
+		<p:linkButton outcome="Microondas.xhtml" value="Microondas"
+			disabled="#{!usuarioMB.logado}"
+			style="margin-right:20px;width:120px;" />
+		<p:linkButton outcome="Corona.xhtml" value="Corona"
+			disabled="#{!usuarioMB.logado}"
+			style="margin-right:20px;width:120px;" />
+		<p:linkButton outcome="Usuario.xhtml" value="Usuario"
+			disabled="#{!usuarioMB.logado}"
+			style="margin-right:20px;width:120px;" />
 	</p:panel>
 
 </h:body>

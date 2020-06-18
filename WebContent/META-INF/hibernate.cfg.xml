@@ -9,5 +9,6 @@
         <mapping class="edu.unoesc.model.Microondas"></mapping>
         <mapping class="edu.unoesc.model.Carro"></mapping>
         <mapping class="edu.unoesc.model.Corona"></mapping>
+        <mapping class="edu.unoesc.model.Usuario"></mapping>
     </session-factory>
 </hibernate-configuration>
