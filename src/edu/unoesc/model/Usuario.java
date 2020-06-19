@@ -38,6 +38,9 @@ public class Usuario {
 	@Column(name = "senha")
 	private String senha;
 	
+	@Column(name = "root")
+	private Boolean root;
+	
 	public Usuario() {
 	
 	}
@@ -80,6 +83,14 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Boolean getRoot() {
+		return root;
+	}
+
+	public void setRoot(Boolean root) {
+		this.root = root;
 	}
 
 	@Override

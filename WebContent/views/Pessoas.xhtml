@@ -16,7 +16,57 @@
 
 <h:body>
 
-	<p:panel style="width:70%; margin: 20px auto;" id="panel">
+
+<!-- PARTE PARA FAZER LOGIN TIPO ECOMMERCE -->
+
+<script type="text/javascript">
+		function handleLoginRequest(xhr, status, args) {
+			if (args.validationFailed || !args.loggedIn) {
+				PF('dlg').jq.effect("shake", {
+					times : 5
+				}, 100);
+			} else {
+				PF('dlg').hide();
+				$('#loginLink').fadeOut();
+			}
+		}
+	</script>
+
+	<h:form id="loginform">
+	
+		<h:outputLink id="linkLogin" value="javascript:void(0)" onclick="PF('dlg').show();"
+			rendered="#{!usuarioMB.logado}" title="login">
+			<p:graphicImage name="images/login.png" height="40px" />
+		</h:outputLink>
+
+		<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+		<p:dialog header="Login" widgetVar="dlg" resizable="false"
+			rendered="#{!usuarioMB.logado}">
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputLabel for="login" value="Login:" />
+				<p:inputText id="login" value="#{usuarioMB.usuario.login}"
+					required="true" label="login" />
+
+				<h:outputLabel for="senha" value="Senha:" />
+				<p:password id="senha" value="#{usuarioMB.usuario.senha}"
+					required="true" label="senha" />
+			</h:panelGrid>
+				
+				<p:link outcome="Usuario.xhtml" value="Ainda não é cadastrado! Clique aqui abestado."/>
+
+				<f:facet name="footer">
+					<p:commandButton value="Login" update="growl"
+						action="#{usuarioMB.fazLogin}"
+						oncomplete="handleLoginRequest(xhr, status, args)" />
+				</f:facet>
+			
+		</p:dialog>
+	</h:form>
+
+<!-- FIM LOGIN -->
+
+	<p:panel  style="width:70%; margin: 20px auto;" id="panel">
 		<p:dataTable var="p" value="#{pessoaMB.pessoas}" scrollable="true"
 			scrollHeight="200">
 			<p:column headerText="Nome">
@@ -33,9 +83,9 @@
 				</h:outputText>
 			</p:column>
 
-			<p:column width="80">
+			<p:column width="80" rendered="#{usuarioMB.logado}">
 				<h:form>
-					<p:commandButton icon="ui-icon-trash"
+					<p:commandButton icon="ui-icon-trash" 
 						action="#{pessoaMB.delete(p.id)}" update="panel" />
 					<p:commandButton icon="ui-icon-pencil"
 						action="#{pessoaMB.load(p.id)}" update="panelCad" />
@@ -44,7 +94,7 @@
 		</p:dataTable>
 	</p:panel>
 
-	<p:panel id="panelCad" header="Cadastro" style="margin: 20px auto; width:40%;">
+	<p:panel id="panelCad" header="Cadastro" style="margin: 20px auto; width:40%;" rendered="#{usuarioMB.logado}">
 		<h:form>
 			<h:inputHidden value="#{pessoaMB.pessoa.id}" />
 

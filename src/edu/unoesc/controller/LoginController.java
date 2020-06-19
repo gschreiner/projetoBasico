@@ -1,6 +1,7 @@
 package edu.unoesc.controller;
 
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -10,7 +11,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.PrimeFaces;
 
@@ -32,15 +35,22 @@ public class LoginController {
 	
 	private boolean logado = false;
 	
+	private boolean isRoot = false;
+	
 	@ManagedProperty(value="#{UsuarioDAO}")
 	private UsuarioDAO usuarioDao;
 	
 	public LoginController() {
-		logado = (SessionContext.getInstance().getAttribute("usuarioLogado")!= null);
+	 Usuario user =	(Usuario) SessionContext.getInstance().getAttribute("usuarioLogado");
+		if (user!=null) {
+			logado = true;
+			isRoot = user.getRoot();
+		}
 	}
 
 	public void save() {
 		this.usuario.setSenha(this.encryptSenha(this.getUsuario().getSenha()));
+		
 		if (usuario.getId() == 0) {
 			this.usuarioDao.insertUsuario(usuario);
 		} else {
@@ -65,7 +75,7 @@ public class LoginController {
 		this.usuario = usuarioDao.getUsuarioById(id);
 	}
 
-	public String fazLogin() {
+	public void fazLogin() throws IOException {
 		FacesMessage message = null;
         
 		usuario = usuarioDao.validaLogin(this.getUsuario().getLogin(), this.encryptSenha(this.getUsuario().getSenha()));
@@ -80,26 +90,31 @@ public class LoginController {
 			logado = false;
 			usuario = new Usuario();
 			FacesContext.getCurrentInstance().addMessage(null, message);
-			return null;
-			
+			return;
 		}
          
         FacesContext.getCurrentInstance().addMessage(null, message);
         PrimeFaces.current().ajax().addCallbackParam("loggedIn", logado);
-        return "/views/Index.html";
+        
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect("Index.xhtml");
+       // return "redirect:views/Index.xhtml";
 	}
 	
 	
-	public void fazLogout() {
+	public void fazLogout() throws IOException {
 		FacesMessage message = null;
         
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Logout!","Até mais.");
 			SessionContext.getInstance().setAttribute("usuarioLogado", null);
 			logado = false;
+			isRoot = false;
 			usuario = new Usuario();
          
         FacesContext.getCurrentInstance().addMessage(null, message);
-        //PrimeFaces.current().ajax().addCallbackParam("loggedIn", logado);
+       
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
 	}
 	
 	
@@ -140,7 +155,6 @@ public class LoginController {
 		this.usuario = usuario;
 	}
 
-
 	public List<Usuario> getListUsuario() {
 		listUsuario = usuarioDao.getUsuarios();
 		return listUsuario;
@@ -171,6 +185,12 @@ public class LoginController {
 		this.logado = logado;
 	}
 	
-	
+	public boolean getIsRoot() {
+		return isRoot;
+	}
+
+	public void setIsRoot(boolean isRoot) {
+		this.isRoot = isRoot;
+	}
 	
 }

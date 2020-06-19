@@ -50,7 +50,7 @@
 
 	<h:form id="logoutForm">
 		<p:commandLink action="#{usuarioMB.fazLogout}"
-			update="panelCad loginform logoutForm" rendered="#{usuarioMB.logado}">
+		    rendered="#{usuarioMB.logado}">
 			<p:graphicImage name="images/logout.png" height="40px" />
 		</p:commandLink>
 		<h:outputLink id="linkLogin" value="javascript:void(0)" onclick="PF('dlg').show();"
@@ -62,17 +62,11 @@
 	<p:panel id="panelCad" header="Menu"
 		style="margin: 20px auto; width:150px;">
 
-		<p:linkButton outcome="Pessoas.xhtml" disabled="#{!usuarioMB.logado}"
+		<p:linkButton outcome="Pessoas.xhtml"
 			value="Pessoas" style="margin-right:20px; width:120px;" />
-		<p:linkButton outcome="Microondas.xhtml" value="Microondas"
-			disabled="#{!usuarioMB.logado}"
-			style="margin-right:20px;width:120px;" />
-		<p:linkButton outcome="Corona.xhtml" value="Corona"
-			disabled="#{!usuarioMB.logado}"
-			style="margin-right:20px;width:120px;" />
-		<p:linkButton outcome="Usuario.xhtml" value="Usuario"
-			disabled="#{!usuarioMB.logado}"
-			style="margin-right:20px;width:120px;" />
+		<p:linkButton outcome="Microondas.xhtml" value="Microondas" disabled="#{!usuarioMB.logado}"	style="margin-right:20px;width:120px;" />
+		<p:linkButton outcome="Corona.xhtml"     value="Corona"	    disabled="#{!usuarioMB.logado}"	style="margin-right:20px;width:120px;" />
+		<p:linkButton outcome="Usuario.xhtml"    value="Usuario"    disabled="#{!usuarioMB.isRoot}" style="margin-right:20px;width:120px;" />
 	</p:panel>
 
 </h:body>

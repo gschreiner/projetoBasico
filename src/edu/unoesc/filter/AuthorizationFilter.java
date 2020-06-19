@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import edu.unoesc.model.Usuario;
 
-
 public class AuthorizationFilter implements Filter {
 
 	public AuthorizationFilter() {
@@ -25,24 +24,28 @@ public class AuthorizationFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		Usuario user = null;
-		   HttpSession sess = ((HttpServletRequest) request).getSession(false);
-		    
-		   if (sess != null){
-		         user = (Usuario) sess.getAttribute("usuarioLogado");
-		   }      
-		 
-		   HttpServletRequest rqt = (HttpServletRequest) request;
-		     if (user == null && (rqt.getRequestURI().indexOf("views/Index.xhtml") <= 0 && rqt.getRequestURI().indexOf("login.xhtml") <= 0)) {
-		              String contextPath = rqt.getContextPath();
-		              
-		              ((HttpServletResponse) response).sendRedirect(contextPath
-		                                 + "/views/Index.xhtml");
-		     } else {
-		              chain.doFilter(request, response);
-		     }
+		HttpSession sess = ((HttpServletRequest) request).getSession(false);
+
+		if (sess != null) {
+			user = (Usuario) sess.getAttribute("usuarioLogado");
+		}
+
+		HttpServletRequest rqt = (HttpServletRequest) request;
+//		if (user == null && (rqt.getRequestURI().indexOf("views/Index.xhtml") <= 0
+//				         && rqt.getRequestURI().indexOf("login.xhtml") <= 0)) {
+	
+			if (user == null && (rqt.getRequestURI().indexOf("login.xhtml") <= 0) 
+							 && (rqt.getRequestURI().indexOf("Pessoas.xhtml") <= 0)
+							 && (rqt.getRequestURI().indexOf("Usuario.xhtml") <= 0)) {	
+			String contextPath = rqt.getContextPath();
+
+			((HttpServletResponse) response).sendRedirect(contextPath + "/views/login.xhtml");
+		} else {
+			chain.doFilter(request, response);
+		}
 	}
 
 	@Override

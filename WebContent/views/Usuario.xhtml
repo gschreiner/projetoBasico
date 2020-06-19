@@ -16,7 +16,7 @@
 
 <h:body>
 
-	<p:panel style="width:70%; margin: 20px auto;" id="panel">
+	<p:panel style="width:70%; margin: 20px auto;" id="panel" rendered="#{usuarioMB.isRoot}">
 		<p:dataTable var="user" value="#{usuarioMB.listUsuario}" scrollable="true"
 			scrollHeight="200">
 			<p:column headerText="Nome">
@@ -55,7 +55,7 @@
 				<h:outputText value="Nome: " />
 				<p:inputText value="#{usuarioMB.usuario.nome}" required="true"
 					label="Nome" >
-						<f:validateLength minimum="5" maximum="20" />
+						<f:validateLength minimum="5" maximum="20"  />
 					</p:inputText>
 
 				<h:outputText value="Email: " />
